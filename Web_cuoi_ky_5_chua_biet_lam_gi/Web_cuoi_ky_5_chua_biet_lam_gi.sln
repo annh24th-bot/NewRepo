@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_cuoi_ky_5_chua_biet_lam_gi", "Web_cuoi_ky_5_chua_biet_lam_gi\Web_cuoi_ky_5_chua_biet_lam_gi.csproj", "{ED66253D-BBB4-47C5-B613-D3F64D6BA85B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_cuoi_ky_5_chua_biet_lam_gi", "Web_cuoi_ky_5_chua_biet_lam_gi\Web_cuoi_ky_5_chua_biet_lam_gi.csproj", "{ED66253D-BBB4-47C5-B613-D3F64D6BA85B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{04711784-D121-4390-A247-A478AE72BCA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Database", "ConsoleApp1\Core.Database.csproj", "{04711784-D121-4390-A247-A478AE72BCA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
