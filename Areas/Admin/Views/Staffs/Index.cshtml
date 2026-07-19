@@ -1,0 +1,43 @@
+@using DjStoreWeb.Models
+@model List<AppUser>
+@{
+    ViewData["Title"] = "Nhân viên";
+}
+
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Thêm nhân viên</a>
+</div>
+
+<div class="card stat-card p-3">
+    <table class="table align-middle">
+        <thead><tr><th>Nhân viên</th><th>Vai trò</th><th>Điện thoại</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>
+                        <div>@u.Name</div>
+                        <div class="text-muted small">@u.Email</div>
+                    </td>
+                    <td><span class="badge @(u.Role == "admin" ? "bg-danger" : "bg-primary")">@u.Role</span></td>
+                    <td>@u.Phone</td>
+                    <td>
+                        @if (u.IsActive)
+                        {
+                            <span class="badge bg-success">Hoạt động</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Đã khóa</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <form asp-action="ToggleActive" asp-route-id="@u.Id" method="post" class="d-inline">
+                            <button class="btn btn-sm btn-outline-warning">@(u.IsActive ? "Khóa" : "Mở khóa")</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

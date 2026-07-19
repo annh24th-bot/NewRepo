@@ -1,0 +1,95 @@
+@using DjStoreWeb.Models
+@model Product
+@{
+    ViewData["Title"] = "Sửa sản phẩm";
+    var categories = (List<Category>)ViewBag.Categories;
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@e.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="card stat-card p-4">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Mã sản phẩm</label>
+            <input value="@Model.Id" class="form-control" disabled />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Tên sản phẩm</label>
+            <input name="Name" value="@Model.Name" class="form-control" required />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Danh mục</label>
+            <select name="CategoryId" id="categorySelect" class="form-select" required onchange="toggleDriveLinkField()">
+                @foreach (var c in categories)
+                {
+                    <option value="@c.Id" selected="@(c.Id == Model.CategoryId)" data-digital="@(new[] { "music-pack", "software-license", "google-drive" }.Contains(c.Id) ? "true" : "false")">@c.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Thương hiệu</label>
+            <input name="Brand" value="@Model.Brand" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Ảnh (URL)</label>
+            <input name="Image" value="@Model.Image" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Giá bán</label>
+            <input name="Price" type="number" step="1000" value="@Model.Price" class="form-control" required />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Giá gốc (nếu có)</label>
+            <input name="OriginalPrice" type="number" step="1000" value="@Model.OriginalPrice" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Nhãn giảm giá</label>
+            <input name="Discount" value="@Model.Discount" class="form-control" />
+        </div>
+        <div class="col-md-12" id="driveLinkField" style="display:none;">
+            <label class="form-label">
+                <i class="bi bi-google me-1"></i>Link Google Drive <span class="text-muted small">(nhạc / phần mềm / tệp lưu trữ — sẽ gửi cho khách sau khi đơn hàng được xử lý)</span>
+            </label>
+            <input name="DriveLink" type="url" value="@Model.DriveLink" class="form-control" placeholder="https://drive.google.com/drive/folders/..." />
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Tồn kho hiện tại</label>
+            <input value="@Model.Stock" class="form-control" disabled />
+            <div class="form-text">Điều chỉnh tồn kho tại mục <a asp-area="Admin" asp-controller="Warehouse" asp-action="Index">Kho hàng</a>.</div>
+        </div>
+        <div class="col-md-12">
+            <label class="form-label">Mô tả</label>
+            <textarea name="Description" rows="3" class="form-control">@Model.Description</textarea>
+        </div>
+        <div class="col-md-6 form-check ms-1">
+            <input type="checkbox" name="FlashSale" value="true" class="form-check-input" id="flashSale" checked="@(Model.FlashSale)" />
+            <label class="form-check-label" for="flashSale">Flash Sale</label>
+        </div>
+        <div class="col-md-6 form-check ms-1">
+            <input type="checkbox" name="IsActive" value="true" class="form-check-input" id="isActive" checked="@(Model.IsActive)" />
+            <label class="form-check-label" for="isActive">Đang bán</label>
+        </div>
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Hủy</a>
+    </div>
+</form>
+
+<script>
+    function toggleDriveLinkField() {
+        var select = document.getElementById('categorySelect');
+        var field = document.getElementById('driveLinkField');
+        var opt = select.options[select.selectedIndex];
+        field.style.display = (opt && opt.dataset.digital === 'true') ? 'block' : 'none';
+    }
+    document.addEventListener('DOMContentLoaded', toggleDriveLinkField);
+</script>

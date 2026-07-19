@@ -1,0 +1,110 @@
+@model DjStoreWeb.Controllers.CheckoutViewModel
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+<div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-2xl font-black mb-6">Thanh toán</h1>
+
+    <form asp-controller="Cart" asp-action="PlaceOrder" method="post" class="grid md:grid-cols-3 gap-8" id="checkoutForm">
+        <div class="md:col-span-2 space-y-4">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 space-y-4">
+                <h2 class="font-bold">Thông tin giao hàng</h2>
+                <div>
+                    <label class="block text-sm text-neutral-400 mb-1">Họ và tên</label>
+                    <input name="FullName" value="@Model.FullName" required class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm text-neutral-400 mb-1">Email</label>
+                    <input type="email" name="Email" value="@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value"
+                           class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm text-neutral-400 mb-1">Số điện thoại</label>
+                    <input name="Phone" required class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm text-neutral-400 mb-1">Địa chỉ nhận hàng</label>
+                    <textarea name="ShippingAddress" required rows="2" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm text-neutral-400 mb-1">Phương thức thanh toán</label>
+                    <select name="PaymentMethod" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2">
+                        <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                        <option value="Bank Transfer">Chuyển khoản ngân hàng</option>
+                        <option value="MOMO">Ví MoMo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 h-fit">
+            <h2 class="font-bold mb-4">Đơn hàng</h2>
+            <div class="space-y-2 text-sm mb-4 max-h-52 overflow-y-auto">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="flex justify-between">
+                        <span>@item.Name × @item.Quantity</span>
+                        <span>@item.LineTotal.ToString("N0")đ</span>
+                    </div>
+                }
+            </div>
+
+            <div class="flex gap-2 mb-4">
+                <input type="text" id="voucherInput" placeholder="Mã giảm giá"
+                       class="flex-1 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm" />
+                <button type="button" id="applyVoucherBtn" class="bg-neutral-800 hover:bg-neutral-700 px-4 rounded-lg text-sm">Áp dụng</button>
+            </div>
+            <div id="voucherMessage" class="text-xs mb-3"></div>
+            <input type="hidden" name="VoucherCode" id="voucherCodeInput" value="" />
+
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-neutral-400">Tạm tính</span>
+                <span id="subtotalText">@Model.Subtotal.ToString("N0")đ</span>
+            </div>
+            <div class="flex justify-between text-sm mb-2 text-green-400">
+                <span>Giảm giá</span>
+                <span id="discountText">-0đ</span>
+            </div>
+            <div class="border-t border-neutral-800 my-3"></div>
+            <div class="flex justify-between font-bold text-lg mb-6">
+                <span>Tổng cộng</span>
+                <span class="text-brand" id="totalText">@Model.Subtotal.ToString("N0")đ</span>
+            </div>
+
+            <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 rounded-full">Đặt hàng</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        const subtotal = @Model.Subtotal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        document.getElementById('applyVoucherBtn').addEventListener('click', async () => {
+            const code = document.getElementById('voucherInput').value.trim();
+            const msgEl = document.getElementById('voucherMessage');
+            if (!code) return;
+
+            const form = new URLSearchParams();
+            form.append('voucherCode', code);
+
+            const res = await fetch('@Url.Action("ApplyVoucher", "Cart")', {
+                method: 'POST',
+                body: form
+            });
+            const data = await res.json();
+
+            msgEl.textContent = data.message;
+            msgEl.className = 'text-xs mb-3 ' + (data.success ? 'text-green-400' : 'text-red-400');
+
+            if (data.success) {
+                document.getElementById('voucherCodeInput').value = code;
+                document.getElementById('discountText').textContent = '-' + Math.round(data.discount).toLocaleString('vi-VN') + 'đ';
+                document.getElementById('totalText').textContent = Math.round(data.total).toLocaleString('vi-VN') + 'đ';
+            } else {
+                document.getElementById('voucherCodeInput').value = '';
+                document.getElementById('discountText').textContent = '-0đ';
+                document.getElementById('totalText').textContent = Math.round(subtotal).toLocaleString('vi-VN') + 'đ';
+            }
+        });
+    </script>
+}

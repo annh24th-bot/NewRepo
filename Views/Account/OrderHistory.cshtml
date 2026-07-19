@@ -1,0 +1,67 @@
+@using DjStoreWeb.Models
+@model List<Order>
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+    var driveLinks = (Dictionary<string, string>)ViewBag.DriveLinks;
+}
+<div class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-2xl font-black mb-6">Đơn hàng của tôi</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="text-neutral-500 py-16 text-center">Bạn chưa có đơn hàng nào.</div>
+    }
+    else
+    {
+        <div class="space-y-4">
+            @foreach (var o in Model)
+            {
+                bool isProcessed = o.Status is OrderStatus.Processed or OrderStatus.Shipping or OrderStatus.Delivered;
+                <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+                    <div class="flex flex-wrap justify-between items-center mb-3">
+                        <div>
+                            <span class="font-bold">#@o.OrderCode</span>
+                            <span class="text-neutral-500 text-sm ml-2">@o.Date.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</span>
+                        </div>
+                        <span class="text-xs font-semibold px-3 py-1 rounded-full
+                            @(o.Status == "Delivered" ? "bg-green-900/40 text-green-400" :
+                              o.Status == "Cancelled" ? "bg-red-900/40 text-red-400" :
+                              "bg-amber-900/40 text-amber-400")">
+                            @o.Status
+                        </span>
+                    </div>
+                    <div class="space-y-1 text-sm text-neutral-400">
+                        @foreach (var item in o.Items)
+                        {
+                            <div class="flex justify-between">
+                                <span>@item.Name × @item.Quantity</span>
+                                <span>@((item.Price * item.Quantity).ToString("N0"))đ</span>
+                            </div>
+
+                            @if (driveLinks.TryGetValue(item.ProductId, out var link))
+                            {
+                                @if (isProcessed)
+                                {
+                                    <div class="bg-brand/10 border border-brand/30 rounded-lg px-3 py-2 flex items-center justify-between gap-2">
+                                        <span class="text-xs text-neutral-300">📁 Nội dung số đã sẵn sàng</span>
+                                        <a href="@link" target="_blank" rel="noopener" class="text-brand text-xs font-semibold hover:underline">Truy cập Google Drive →</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="bg-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-500">
+                                        Link Google Drive sẽ được mở khi đơn hàng được xử lý/xác nhận thanh toán.
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="flex justify-between mt-3 pt-3 border-t border-neutral-800 font-bold">
+                        <span>Tổng cộng</span>
+                        <span class="text-brand">@o.Total.ToString("N0")đ</span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

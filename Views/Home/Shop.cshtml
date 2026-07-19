@@ -1,0 +1,80 @@
+@using DjStoreWeb.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Cửa hàng";
+    var categories = (List<Category>)ViewBag.Categories;
+    string? currentCategory = ViewBag.CurrentCategory;
+    string sort = ViewBag.Sort;
+    int page = ViewBag.Page;
+    int totalPages = ViewBag.TotalPages;
+}
+
+<div class="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-4 gap-6">
+    <aside class="md:col-span-1">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+            <h3 class="font-bold mb-3">Danh mục</h3>
+            <ul class="space-y-1 text-sm">
+                <li>
+                    <a asp-controller="Home" asp-action="Shop"
+                       class="block px-2 py-1 rounded-lg @(string.IsNullOrEmpty(currentCategory) ? "bg-brand text-white" : "hover:bg-neutral-800")">
+                        Tất cả sản phẩm
+                    </a>
+                </li>
+                @foreach (var c in categories)
+                {
+                    <li>
+                        <a asp-controller="Home" asp-action="Shop" asp-route-category="@c.Id"
+                           class="block px-2 py-1 rounded-lg @(currentCategory == c.Id ? "bg-brand text-white" : "hover:bg-neutral-800")">
+                            @c.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </aside>
+
+    <div class="md:col-span-3">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <h1 class="text-xl font-bold">@(ViewBag.Query != null ? $"Kết quả cho \"{ViewBag.Query}\"" : "Tất cả sản phẩm")</h1>
+            <form asp-controller="Home" asp-action="Shop" method="get" class="flex gap-2">
+                <input type="hidden" name="category" value="@currentCategory" />
+                <input type="hidden" name="q" value="@ViewBag.Query" />
+                <select name="sort" onchange="this.form.submit()" class="bg-neutral-800 border border-neutral-700 rounded-lg text-sm px-3 py-2">
+                    <option value="default" selected="@(sort == "default")">Mặc định</option>
+                    <option value="price_asc" selected="@(sort == "price_asc")">Giá tăng dần</option>
+                    <option value="price_desc" selected="@(sort == "price_desc")">Giá giảm dần</option>
+                    <option value="rating" selected="@(sort == "rating")">Đánh giá cao</option>
+                    <option value="newest" selected="@(sort == "newest")">Mới nhất</option>
+                </select>
+            </form>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="text-neutral-500 py-16 text-center">Không tìm thấy sản phẩm phù hợp.</div>
+        }
+        else
+        {
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach (var p in Model)
+                {
+                    @await Html.PartialAsync("_ProductCard", p)
+                }
+            </div>
+
+            @if (totalPages > 1)
+            {
+                <div class="flex justify-center gap-2 mt-8">
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <a asp-controller="Home" asp-action="Shop"
+                           asp-route-category="@currentCategory" asp-route-q="@((string?)ViewBag.Query)" asp-route-sort="@sort" asp-route-page="@i"
+                           class="px-3 py-1 rounded-lg text-sm @(i == page ? "bg-brand text-white" : "bg-neutral-800 hover:bg-neutral-700")">
+                            @i
+                        </a>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

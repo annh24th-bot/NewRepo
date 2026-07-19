@@ -1,0 +1,62 @@
+@using DjStoreWeb.Models
+@model List<ContactMessage>
+@{
+    ViewData["Title"] = "Liên hệ từ khách hàng";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="btn-group">
+        <a asp-action="Index" class="btn btn-sm @(ViewBag.Filter == null ? "btn-primary" : "btn-outline-secondary")">Tất cả</a>
+        <a asp-action="Index" asp-route-filter="unhandled" class="btn btn-sm @(ViewBag.Filter == "unhandled" ? "btn-primary" : "btn-outline-secondary")">
+            Chưa xử lý (@ViewBag.UnhandledCount)
+        </a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card stat-card p-4 text-center text-muted">Không có liên hệ nào.</div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var m in Model)
+        {
+            <div class="col-12">
+                <div class="card stat-card p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong>@m.Name</strong>
+                            <span class="text-muted small ms-2">@m.Email</span>
+                        </div>
+                        <div class="text-end">
+                            <div class="text-muted small">@m.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</div>
+                            @if (m.IsHandled)
+                            {
+                                <span class="badge bg-success">Đã phản hồi</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                            }
+                        </div>
+                    </div>
+                    <p class="mb-3">@m.Message</p>
+
+                    @if (!string.IsNullOrWhiteSpace(m.AdminReply))
+                    {
+                        <div class="bg-light rounded-3 p-3 mb-3">
+                            <div class="small fw-bold text-primary mb-1">Phản hồi của bạn (@m.RepliedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm"))</div>
+                            <div class="small">@m.AdminReply</div>
+                        </div>
+                    }
+
+                    <form asp-action="Reply" asp-route-id="@m.Id" method="post" class="d-flex gap-2">
+                        <input type="text" name="adminReply" class="form-control form-control-sm" placeholder="Nhập nội dung phản hồi cho khách hàng..." value="@m.AdminReply" required />
+                        <button type="submit" class="btn btn-sm btn-primary text-nowrap">Lưu phản hồi</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+}

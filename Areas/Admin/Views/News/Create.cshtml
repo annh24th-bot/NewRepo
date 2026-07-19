@@ -1,0 +1,44 @@
+@using DjStoreWeb.Models
+@model NewsPost
+@{
+    ViewData["Title"] = "Đăng bài viết";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@e.ErrorMessage</div>
+        }
+    </div>
+}
+
+<form asp-action="Create" method="post" class="card stat-card p-4" style="max-width:720px;">
+    <div class="mb-3">
+        <label class="form-label">Tiêu đề</label>
+        <input name="Title" value="@Model.Title" class="form-control" required />
+    </div>
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Chuyên mục</label>
+            <input name="Category" value="@Model.Category" class="form-control" placeholder="Cẩm nang, Khuyến mãi, Phần mềm..." />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Tác giả</label>
+            <input name="Author" value="@Model.Author" class="form-control" placeholder="DJ Store" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Ảnh minh họa (URL)</label>
+        <input name="Image" value="@Model.Image" class="form-control" placeholder="https://..." />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Nội dung</label>
+        <textarea name="Content" rows="8" class="form-control" required>@Model.Content</textarea>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Đăng bài</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Hủy</a>
+    </div>
+</form>

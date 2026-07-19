@@ -1,0 +1,165 @@
+@using System.Text.Json
+@using DjStoreWeb.Models
+@model Product
+@{
+    ViewData["Title"] = Model.Name;
+    var related = (List<Product>)ViewBag.Related;
+    var specs = new Dictionary<string, string>();
+    try { specs = JsonSerializer.Deserialize<Dictionary<string, string>>(Model.SpecsJson) ?? new(); } catch { }
+}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <nav class="text-xs text-neutral-500 mb-6">
+        <a asp-controller="Home" asp-action="Index" class="hover:text-brand">Trang chủ</a> /
+        <a asp-controller="Home" asp-action="Shop" asp-route-category="@Model.CategoryId" class="hover:text-brand">@(Model.Category?.Name ?? Model.CategoryId)</a> /
+        <span class="text-neutral-300">@Model.Name</span>
+    </nav>
+
+    <div class="grid md:grid-cols-2 gap-10">
+        <img src="@Model.Image" alt="@Model.Name" class="w-full rounded-2xl border border-neutral-800 object-cover" />
+
+        <div>
+            <span class="text-xs text-neutral-500">@Model.Brand</span>
+            <h1 class="text-2xl font-black mt-1 mb-3">@Model.Name</h1>
+            <div class="flex items-center gap-2 text-amber-400 text-sm mb-4">
+                ★ @(((double)ViewBag.AvgRating).ToString("0.0")) <span class="text-neutral-500">(@ViewBag.ReviewCount đánh giá)</span>
+            </div>
+
+            <div class="flex items-baseline gap-3 mb-6">
+                <span class="text-3xl font-black text-brand">@Model.Price.ToString("N0")đ</span>
+                @if (Model.OriginalPrice.HasValue && Model.OriginalPrice > Model.Price)
+                {
+                    <span class="text-neutral-500 line-through">@Model.OriginalPrice.Value.ToString("N0")đ</span>
+                }
+                @if (!string.IsNullOrEmpty(Model.Discount))
+                {
+                    <span class="bg-brand/20 text-brand text-xs font-bold px-2 py-1 rounded-full">-@Model.Discount</span>
+                }
+            </div>
+
+            <p class="text-sm mb-2">
+                Tình trạng kho:
+                @if (Model.Stock > 0)
+                {
+                    <span class="text-green-400 font-semibold">Còn @Model.Stock sản phẩm</span>
+                }
+                else
+                {
+                    <span class="text-red-400 font-semibold">Hết hàng</span>
+                }
+            </p>
+
+            <form asp-controller="Cart" asp-action="Add" method="post" class="flex items-center gap-3 my-6">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <input type="number" name="quantity" value="1" min="1" max="@Math.Max(1, Model.Stock)"
+                       class="w-20 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-center" />
+                <button type="submit" class="flex-1 bg-brand hover:bg-brand-dark text-white font-bold py-3 rounded-full" disabled="@(Model.Stock <= 0)">
+                    Thêm vào giỏ hàng
+                </button>
+            </form>
+
+            <p class="text-sm text-neutral-400 leading-relaxed">@Model.Description</p>
+
+            @if (specs.Any())
+            {
+                <div class="mt-6 border-t border-neutral-800 pt-4">
+                    <h3 class="font-semibold mb-2">Thông số kỹ thuật</h3>
+                    <dl class="grid grid-cols-2 gap-y-2 text-sm">
+                        @foreach (var kv in specs)
+                        {
+                            <dt class="text-neutral-500">@kv.Key</dt>
+                            <dd>@kv.Value</dd>
+                        }
+                    </dl>
+                </div>
+            }
+        </div>
+    </div>
+
+    <section class="mt-16 max-w-3xl">
+        <h2 class="text-lg font-bold mb-4">Đánh giá &amp; nhận xét từ khách hàng</h2>
+
+        @{
+            var reviews = (List<Review>)ViewBag.Reviews;
+        }
+
+        @if (TempData["ReviewSuccess"] != null)
+        {
+            <div class="bg-green-900/40 border border-green-700 text-green-300 text-sm rounded-lg px-4 py-3 mb-4">@TempData["ReviewSuccess"]</div>
+        }
+        @if (TempData["ReviewError"] != null)
+        {
+            <div class="bg-red-900/40 border border-red-700 text-red-300 text-sm rounded-lg px-4 py-3 mb-4">@TempData["ReviewError"]</div>
+        }
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <form asp-controller="Reviews" asp-action="Create" method="post" class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 mb-6 space-y-3">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <div>
+                    <label class="block text-sm text-neutral-400 mb-1">Đánh giá của bạn</label>
+                    <select name="rating" class="bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm">
+                        <option value="5">★★★★★ Tuyệt vời</option>
+                        <option value="4">★★★★☆ Tốt</option>
+                        <option value="3">★★★☆☆ Bình thường</option>
+                        <option value="2">★★☆☆☆ Không hài lòng</option>
+                        <option value="1">★☆☆☆☆ Tệ</option>
+                    </select>
+                </div>
+                <div>
+                    <textarea name="comment" rows="3" required placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm này..."
+                              class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm"></textarea>
+                </div>
+                <button type="submit" class="bg-brand hover:bg-brand-dark text-white font-bold px-6 py-2 rounded-full text-sm">Gửi đánh giá</button>
+            </form>
+        }
+        else
+        {
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 mb-6 text-sm text-neutral-400">
+                <a asp-controller="Account" asp-action="Login" class="text-brand hover:underline">Đăng nhập</a> để chia sẻ đánh giá của bạn về sản phẩm này.
+            </div>
+        }
+
+        @if (!reviews.Any())
+        {
+            <p class="text-neutral-500 text-sm">Chưa có đánh giá nào cho sản phẩm này. Hãy là người đầu tiên nhận xét!</p>
+        }
+        else
+        {
+            <div class="space-y-4">
+                @foreach (var r in reviews)
+                {
+                    <div class="border-b border-neutral-800 pb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-sm">@r.CustomerName</span>
+                            <span class="text-xs text-neutral-500">@r.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="text-amber-400 text-xs my-1">@(new string('★', r.Rating))@(new string('☆', 5 - r.Rating))</div>
+                        <p class="text-sm text-neutral-300">@r.Comment</p>
+
+                        @if (!string.IsNullOrWhiteSpace(r.AdminReply))
+                        {
+                            <div class="mt-2 ml-4 bg-neutral-900 border-l-2 border-brand rounded-r-lg px-3 py-2">
+                                <span class="text-xs font-semibold text-brand">Phản hồi từ DJ Store</span>
+                                <p class="text-sm text-neutral-400 mt-1">@r.AdminReply</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </section>
+
+    @if (related.Any())
+    {
+        <section class="mt-16">
+            <h2 class="text-lg font-bold mb-4">Sản phẩm liên quan</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach (var p in related)
+                {
+                    @await Html.PartialAsync("_ProductCard", p)
+                }
+            </div>
+        </section>
+    }
+</div>

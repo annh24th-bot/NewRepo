@@ -1,0 +1,140 @@
+@using DjStoreWeb.Services
+@inject CartService Cart
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - DJ Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { DEFAULT: '#f97316', dark: '#c2410c' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col">
+
+    <header class="bg-neutral-900/95 border-b border-neutral-800 sticky top-0 z-50 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16 gap-4">
+                <a asp-controller="Home" asp-action="Index" class="text-2xl font-black tracking-tight">
+                    <span class="text-brand">DJ</span><span class="text-white">STORE</span>
+                </a>
+
+                <form asp-controller="Home" asp-action="Shop" method="get" class="hidden md:flex flex-1 max-w-xl">
+                    <input type="text" name="q" placeholder="Tìm thiết bị DJ, phần mềm, gói nhạc..."
+                           class="w-full bg-neutral-800 border border-neutral-700 rounded-l-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand" />
+                    <button class="bg-brand hover:bg-brand-dark px-5 rounded-r-full text-sm font-semibold">Tìm</button>
+                </form>
+
+                <nav class="flex items-center gap-4 text-sm font-medium">
+                    <a asp-controller="Home" asp-action="Shop" class="hover:text-brand hidden sm:inline">Cửa hàng</a>
+                    <a asp-controller="News" asp-action="Index" class="hover:text-brand hidden sm:inline">Tin tức</a>
+                    <a asp-controller="Home" asp-action="About" class="hover:text-brand hidden sm:inline">Giới thiệu</a>
+                    <a asp-controller="Home" asp-action="Contact" class="hover:text-brand hidden sm:inline">Liên hệ</a>
+
+                    <a asp-controller="Cart" asp-action="Index" class="relative px-2">
+                        🛒
+                        <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">@Cart.TotalQuantity()</span>
+                    </a>
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="relative" data-dropdown>
+                            <button type="button" data-dropdown-trigger class="flex items-center gap-1">👤 <span class="hidden sm:inline">@User.Identity.Name</span></button>
+                            <div data-dropdown-menu class="absolute right-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl hidden">
+                                @if (User.IsInRole("admin") || User.IsInRole("employee"))
+                                {
+                                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="block px-4 py-2 hover:bg-neutral-700 text-sm">Trang quản trị</a>
+                                }
+                                <a asp-controller="Account" asp-action="Profile" class="block px-4 py-2 hover:bg-neutral-700 text-sm">Tài khoản</a>
+                                <a asp-controller="Account" asp-action="OrderHistory" class="block px-4 py-2 hover:bg-neutral-700 text-sm">Đơn hàng của tôi</a>
+                                <a asp-controller="Account" asp-action="Logout" class="block px-4 py-2 hover:bg-neutral-700 text-sm text-red-400">Đăng xuất</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="hover:text-brand">Đăng nhập</a>
+                    }
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1">
+        @if (TempData["CartSuccess"] != null)
+        {
+            <div class="max-w-7xl mx-auto px-4 mt-4">
+                <div class="bg-green-900/40 border border-green-700 text-green-300 text-sm rounded-lg px-4 py-3">@TempData["CartSuccess"]</div>
+            </div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer class="bg-neutral-900 border-t border-neutral-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-neutral-400">
+            <div>
+                <div class="text-xl font-black text-white mb-2"><span class="text-brand">DJ</span>STORE</div>
+                <p>Thiết bị DJ, phần mềm bản quyền và gói nhạc chuyên nghiệp cho DJ Việt Nam.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-2">Cửa hàng</h4>
+                <ul class="space-y-1">
+                    <li><a asp-controller="Home" asp-action="Shop" class="hover:text-brand">Tất cả sản phẩm</a></li>
+                    <li><a asp-controller="News" asp-action="Index" class="hover:text-brand">Tin tức &amp; cẩm nang</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-2">Hỗ trợ</h4>
+                <ul class="space-y-1">
+                    <li><a asp-controller="Home" asp-action="Contact" class="hover:text-brand">Liên hệ</a></li>
+                    <li><a asp-controller="Account" asp-action="OrderHistory" class="hover:text-brand">Tra cứu đơn hàng</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-2">Liên hệ</h4>
+                <p>Hotline: 1900 6868</p>
+                <p>Email: support@djstore.vn</p>
+            </div>
+        </div>
+        <div class="text-center text-xs text-neutral-600 pb-6">© @DateTime.Now.Year DJ Store. Ứng dụng ASP.NET Core 8 demo.</div>
+    </footer>
+
+    <script>
+        // Click-to-toggle dropdown (account menu). Using click instead of hover avoids
+        // the classic Tailwind "gap" bug where moving the mouse to the menu closes it first.
+        document.addEventListener('click', function (e) {
+            var trigger = e.target.closest('[data-dropdown-trigger]');
+
+            document.querySelectorAll('[data-dropdown-menu]').forEach(function (menu) {
+                var wrapper = menu.closest('[data-dropdown]');
+                var isThisMenusTrigger = trigger && wrapper && wrapper.contains(trigger);
+
+                if (isThisMenusTrigger) {
+                    menu.classList.toggle('hidden');
+                } else if (!menu.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('[data-dropdown-menu]').forEach(function (menu) {
+                    menu.classList.add('hidden');
+                });
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

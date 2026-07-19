@@ -1,0 +1,41 @@
+@model DjStoreWeb.Models.AppUser
+@{
+    ViewData["Title"] = "Tài khoản của tôi";
+}
+<div class="max-w-2xl mx-auto px-4 py-16">
+    <h1 class="text-2xl font-black mb-6">Thông tin tài khoản</h1>
+
+    @if (TempData["ProfileSuccess"] != null)
+    {
+        <div class="bg-green-900/40 border border-green-700 text-green-300 text-sm rounded-lg px-4 py-3 mb-4">@TempData["ProfileSuccess"]</div>
+    }
+
+    <div class="flex items-center gap-4 mb-6">
+        <img src="@Model.Avatar" class="w-16 h-16 rounded-full object-cover border border-neutral-700" alt="avatar" />
+        <div>
+            <div class="font-bold">@Model.Name</div>
+            <div class="text-sm text-neutral-500">@Model.Email</div>
+            <span class="text-xs text-brand uppercase">@Model.Role</span>
+        </div>
+    </div>
+
+    <form asp-controller="Account" asp-action="Profile" method="post" class="space-y-4 bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <div>
+            <label class="block text-sm text-neutral-400 mb-1">Họ và tên</label>
+            <input name="name" value="@Model.Name" required class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+        </div>
+        <div>
+            <label class="block text-sm text-neutral-400 mb-1">Số điện thoại</label>
+            <input name="phone" value="@Model.Phone" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+        </div>
+        <div>
+            <label class="block text-sm text-neutral-400 mb-1">Địa chỉ</label>
+            <input name="address" value="@Model.Address" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+        </div>
+        <button type="submit" class="bg-brand hover:bg-brand-dark text-white font-bold px-8 py-3 rounded-full">Lưu thay đổi</button>
+    </form>
+
+    <div class="mt-6">
+        <a asp-controller="Account" asp-action="OrderHistory" class="text-brand hover:underline text-sm">Xem lịch sử đơn hàng →</a>
+    </div>
+</div>

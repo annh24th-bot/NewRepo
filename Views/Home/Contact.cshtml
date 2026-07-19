@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Liên hệ";
+}
+<div class="max-w-2xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-black mb-6">Liên hệ với chúng tôi</h1>
+
+    @if (TempData["ContactSuccess"] != null)
+    {
+        <div class="bg-green-900/40 border border-green-700 text-green-300 text-sm rounded-lg px-4 py-3 mb-6">@TempData["ContactSuccess"]</div>
+    }
+    @if (TempData["ContactError"] != null)
+    {
+        <div class="bg-red-900/40 border border-red-700 text-red-300 text-sm rounded-lg px-4 py-3 mb-6">@TempData["ContactError"]</div>
+    }
+
+    <form asp-controller="Home" asp-action="Contact" method="post" class="space-y-4">
+        <div>
+            <label class="block text-sm text-neutral-400 mb-1">Họ và tên</label>
+            <input name="name" required class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+        </div>
+        <div>
+            <label class="block text-sm text-neutral-400 mb-1">Email</label>
+            <input type="email" name="email" required class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2" />
+        </div>
+        <div>
+            <label class="block text-sm text-neutral-400 mb-1">Nội dung</label>
+            <textarea name="message" rows="5" required class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-2"></textarea>
+        </div>
+        <button type="submit" class="bg-brand hover:bg-brand-dark text-white font-bold px-8 py-3 rounded-full">Gửi liên hệ</button>
+    </form>
+
+    <div class="mt-10 text-sm text-neutral-400 space-y-1">
+        <p>📍 456 Điện Biên Phủ, Bình Thạnh, TP. HCM</p>
+        <p>📞 Hotline: 1900 6868</p>
+        <p>✉️ support@djstore.vn</p>
+    </div>
+</div>

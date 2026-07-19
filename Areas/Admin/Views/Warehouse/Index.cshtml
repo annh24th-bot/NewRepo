@@ -1,0 +1,53 @@
+@using DjStoreWeb.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Kho hàng";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <form class="d-flex gap-2" method="get">
+        <input type="text" name="q" value="@ViewBag.Query" class="form-control" placeholder="Tìm theo tên hoặc mã sản phẩm..." />
+        <button class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+    </form>
+    <a asp-action="ExportCsv" class="btn btn-outline-success"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Xuất báo cáo CSV</a>
+</div>
+
+<div class="card stat-card p-3">
+    <table class="table align-middle">
+        <thead><tr><th>Sản phẩm</th><th>Danh mục</th><th>Tồn kho</th><th>Điều chỉnh</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td class="d-flex align-items-center gap-2">
+                        <img src="@p.Image" style="width:40px;height:40px;object-fit:cover;border-radius:8px" />
+                        <div>
+                            <div>@p.Name</div>
+                            <div class="text-muted small">@p.Id</div>
+                        </div>
+                    </td>
+                    <td>@(p.Category?.Name ?? p.CategoryId)</td>
+                    <td>
+                        <span class="badge @(p.Stock <= 5 ? "bg-danger" : p.Stock <= 15 ? "bg-warning text-dark" : "bg-success")">@p.Stock</span>
+                    </td>
+                    <td style="min-width:360px">
+                        <form asp-action="Adjust" method="post" class="d-flex gap-1">
+                            <input type="hidden" name="productId" value="@p.Id" />
+                            <select name="changeType" class="form-select form-select-sm" style="max-width:110px">
+                                <option value="In">Nhập (+)</option>
+                                <option value="Out">Xuất (-)</option>
+                                <option value="Set">Thiết lập</option>
+                            </select>
+                            <input type="number" name="quantity" min="0" value="1" class="form-control form-control-sm" style="max-width:80px" required />
+                            <input type="text" name="reason" placeholder="Lý do điều chỉnh" class="form-control form-control-sm" required />
+                            <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
+                        </form>
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="History" asp-route-productId="@p.Id" class="btn btn-sm btn-outline-secondary">Lịch sử</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

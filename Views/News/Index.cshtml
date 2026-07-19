@@ -1,0 +1,39 @@
+@using DjStoreWeb.Models
+@model List<NewsPost>
+@{
+    ViewData["Title"] = "Tin tức";
+    var categories = (List<string>)ViewBag.Categories;
+    string? current = ViewBag.CurrentCategory;
+}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-2xl font-black mb-6">Tin tức &amp; cẩm nang</h1>
+
+    <div class="flex flex-wrap gap-2 mb-8">
+        <a asp-controller="News" asp-action="Index" class="px-3 py-1.5 rounded-full text-sm @(current == null ? "bg-brand text-white" : "bg-neutral-800 hover:bg-neutral-700")">Tất cả</a>
+        @foreach (var c in categories)
+        {
+            <a asp-controller="News" asp-action="Index" asp-route-category="@c" class="px-3 py-1.5 rounded-full text-sm @(current == c ? "bg-brand text-white" : "bg-neutral-800 hover:bg-neutral-700")">@c</a>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-neutral-500 py-16 text-center">Chưa có bài viết nào.</div>
+    }
+    else
+    {
+        <div class="grid md:grid-cols-3 gap-6">
+            @foreach (var n in Model)
+            {
+                <a asp-controller="News" asp-action="Detail" asp-route-id="@n.Id" class="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden card-hover">
+                    <img src="@n.Image" class="w-full h-40 object-cover" alt="@n.Title" />
+                    <div class="p-4">
+                        <span class="text-xs text-brand">@n.Category</span>
+                        <h3 class="font-semibold mt-1 line-clamp-2">@n.Title</h3>
+                        <div class="text-xs text-neutral-500 mt-2">@n.CreatedAt.ToString("dd/MM/yyyy") · @n.Views lượt xem</div>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>

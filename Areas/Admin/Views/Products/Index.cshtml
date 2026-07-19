@@ -1,0 +1,55 @@
+@using DjStoreWeb.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Sản phẩm";
+    var categories = (List<Category>)ViewBag.Categories;
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <form class="d-flex gap-2" method="get">
+        <input type="text" name="q" value="@ViewBag.Query" class="form-control" placeholder="Tìm theo tên hoặc mã..." />
+        <select name="category" class="form-select" onchange="this.form.submit()">
+            <option value="">Tất cả danh mục</option>
+            @foreach (var c in categories)
+            {
+                <option value="@c.Id" selected="@(ViewBag.Category == c.Id)">@c.Name</option>
+            }
+        </select>
+        <button class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+    </form>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Thêm sản phẩm</a>
+</div>
+
+<div class="card stat-card p-3">
+    <table class="table align-middle">
+        <thead><tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Danh mục</th><th>Giá</th><th>Tồn kho</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td><img src="@p.Image" style="width:48px;height:48px;object-fit:cover;border-radius:8px" /></td>
+                    <td>@p.Name <div class="text-muted small">@p.Id</div></td>
+                    <td>@(p.Category?.Name ?? p.CategoryId)</td>
+                    <td>@p.Price.ToString("N0")đ</td>
+                    <td>@p.Stock</td>
+                    <td>
+                        @if (p.IsActive)
+                        {
+                            <span class="badge bg-success">Đang bán</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Ẩn</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@p.Id" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                        <form asp-action="Delete" asp-route-id="@p.Id" method="post" class="d-inline" onsubmit="return confirm('Xóa sản phẩm này?')">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

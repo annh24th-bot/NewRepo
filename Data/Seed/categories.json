@@ -1,0 +1,80 @@
+[
+  {
+    "id": "dj-controller",
+    "name": "DJ Controller",
+    "icon": "Sliders",
+    "description": "Bàn điều khiển DJ tích hợp phần mềm chuyên nghiệp."
+  },
+  {
+    "id": "mixer",
+    "name": "Mixer DJ",
+    "icon": "Shuffle",
+    "description": "Bộ trộn âm thanh cao cấp cho DJ chuyên nghiệp."
+  },
+  {
+    "id": "cdj",
+    "name": "CDJ / Media Player",
+    "icon": "Disc",
+    "description": "Đầu phát nhạc chuyên nghiệp cho Bar & Club."
+  },
+  {
+    "id": "turntable",
+    "name": "Mâm đĩa than Turntable",
+    "icon": "Radio",
+    "description": "Mâm đĩa xoay truyền thống phong cách Scratch cổ điển."
+  },
+  {
+    "id": "headphones",
+    "name": "Tai nghe DJ",
+    "icon": "Headphones",
+    "description": "Tai nghe kiểm âm chất lượng cao, độ cách âm tốt."
+  },
+  {
+    "id": "speakers",
+    "name": "Loa Monitor",
+    "icon": "Speaker",
+    "description": "Loa kiểm âm phòng thu và biểu diễn sắc nét."
+  },
+  {
+    "id": "soundcard",
+    "name": "Sound Card",
+    "icon": "Cpu",
+    "description": "Thiết bị xử lý và chuyển đổi âm thanh chất lượng cao."
+  },
+  {
+    "id": "microphone",
+    "name": "Microphone",
+    "icon": "Mic",
+    "description": "Micro thu âm và biểu diễn sân khấu cao cấp."
+  },
+  {
+    "id": "lighting",
+    "name": "Ánh sáng Lighting",
+    "icon": "Zap",
+    "description": "Đèn chớp sân khấu, laser chuyên nghiệp."
+  },
+  {
+    "id": "accessories",
+    "name": "Phụ kiện Accessories",
+    "icon": "Package",
+    "description": "Cáp tín hiệu, túi xách bảo vệ, chân đế."
+  },
+  {
+    "id": "software-license",
+    "name": "Bản quyền phần mềm",
+    "icon": "Code",
+    "description": "Phần mềm làm nhạc: Rekordbox, FL Studio, Serato, Ableton."
+  },
+  {
+    "id": "google-drive",
+    "name": "Lưu trữ Google Drive",
+    "icon": "HardDrive",
+    "description": "Dung lượng đám mây lưu trữ nhạc số Lossless từ 100GB tới 10TB."
+  },
+  {
+    "id": "music-pack",
+    "name": "Gói nhạc DJ chuyên dụng",
+    "icon": "Music",
+    "description": "Kho nhạc sàn EDM, House, Vinahouse, TikTok Remix cực căng."
+  }
+]

@@ -1,0 +1,41 @@
+@using DjStoreWeb.Models
+@model AppUser
+@{
+    ViewData["Title"] = Model.Name;
+    var orders = (List<Order>)ViewBag.Orders;
+}
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card stat-card p-3 text-center">
+            <img src="@Model.Avatar" class="rounded-circle mx-auto mb-3" style="width:96px;height:96px;object-fit:cover" />
+            <h5>@Model.Name</h5>
+            <p class="text-muted mb-1">@Model.Email</p>
+            <p class="mb-1">📞 @Model.Phone</p>
+            <p class="mb-0">📍 @Model.Address</p>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card stat-card p-3">
+            <h6 class="mb-3">Lịch sử đơn hàng (@orders.Count)</h6>
+            <table class="table align-middle">
+                <thead><tr><th>Mã đơn</th><th>Ngày</th><th>Trạng thái</th><th class="text-end">Tổng tiền</th></tr></thead>
+                <tbody>
+                    @foreach (var o in orders)
+                    {
+                        <tr>
+                            <td><a asp-controller="Orders" asp-action="Details" asp-route-id="@o.Id">#@o.OrderCode</a></td>
+                            <td>@o.Date.ToString("dd/MM/yyyy")</td>
+                            <td><span class="badge bg-secondary">@o.Status</span></td>
+                            <td class="text-end">@o.Total.ToString("N0")đ</td>
+                        </tr>
+                    }
+                    @if (!orders.Any())
+                    {
+                        <tr><td colspan="4" class="text-center text-muted py-4">Khách hàng chưa có đơn hàng nào.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

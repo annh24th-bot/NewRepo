@@ -1,0 +1,37 @@
+@model Product
+<div class="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden card-hover flex flex-col">
+    <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.Id" class="block relative">
+        <img src="@Model.Image" alt="@Model.Name" class="w-full h-44 object-cover" loading="lazy" />
+        @if (Model.FlashSale)
+        {
+            <span class="absolute top-2 left-2 bg-brand text-white text-[11px] font-bold px-2 py-1 rounded-full">FLASH SALE</span>
+        }
+        @if (Model.Stock <= 0)
+        {
+            <span class="absolute inset-0 bg-black/60 flex items-center justify-center text-sm font-semibold">Hết hàng</span>
+        }
+    </a>
+    <div class="p-4 flex flex-col gap-1 flex-1">
+        <span class="text-xs text-neutral-500">@Model.Brand</span>
+        <a asp-controller="Home" asp-action="Product" asp-route-id="@Model.Id" class="font-semibold text-sm line-clamp-2 hover:text-brand">@Model.Name</a>
+        <div class="flex items-center gap-1 text-xs text-amber-400 mt-1">
+            ★ @Model.Rating.ToString("0.0") <span class="text-neutral-500">(@Model.Reviews)</span>
+        </div>
+        <div class="mt-auto pt-2">
+            <div class="flex items-baseline gap-2">
+                <span class="text-brand font-bold">@Model.Price.ToString("N0")đ</span>
+                @if (Model.OriginalPrice.HasValue && Model.OriginalPrice > Model.Price)
+                {
+                    <span class="text-neutral-500 text-xs line-through">@Model.OriginalPrice.Value.ToString("N0")đ</span>
+                }
+            </div>
+            <form asp-controller="Cart" asp-action="Add" method="post" class="mt-2">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <input type="hidden" name="quantity" value="1" />
+                <button type="submit" class="w-full bg-neutral-800 hover:bg-brand hover:text-white transition rounded-lg py-2 text-xs font-semibold" disabled="@(Model.Stock <= 0)">
+                    Thêm vào giỏ
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

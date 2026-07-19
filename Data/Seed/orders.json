@@ -1,0 +1,85 @@
+[
+  {
+    "orderId": "DJS-20260701-01",
+    "customerEmail": "customer@djstore.com",
+    "customerName": "Trần Minh Tiến",
+    "date": "2026-07-01T14:30:00Z",
+    "items": [
+      {
+        "id": "pioneer-ddj-flx4",
+        "name": "Pioneer DJ DDJ-FLX4",
+        "price": 8500000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop"
+      },
+      {
+        "id": "pioneer-hdj-x5",
+        "name": "Tai nghe Pioneer HDJ-X5",
+        "price": 3200000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop"
+      }
+    ],
+    "subtotal": 11700000,
+    "discount": 500000,
+    "voucherCode": "HELLOSUMMER",
+    "total": 11200000,
+    "status": "Delivered",
+    "paymentMethod": "Bank Transfer",
+    "shippingAddress": "123 Nguyễn Trãi, Quận 1, TP. HCM",
+    "phone": "0987654321"
+  },
+  {
+    "orderId": "DJS-20260710-02",
+    "customerEmail": "customer@djstore.com",
+    "customerName": "Trần Minh Tiến",
+    "date": "2026-07-10T09:15:00Z",
+    "items": [
+      {
+        "id": "gdrive-2tb",
+        "name": "Dung lượng Google Drive 2TB (1 Năm)",
+        "price": 690000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
+      },
+      {
+        "id": "rekordbox-creative-yearly",
+        "name": "Bản quyền Rekordbox Creative (Hàng năm)",
+        "price": 3600000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
+      }
+    ],
+    "subtotal": 4290000,
+    "discount": 0,
+    "voucherCode": "",
+    "total": 4290000,
+    "status": "Processed",
+    "paymentMethod": "MOMO",
+    "shippingAddress": "123 Nguyễn Trãi, Quận 1, TP. HCM",
+    "phone": "0987654321"
+  },
+  {
+    "orderId": "DJS-20260712-03",
+    "customerEmail": "someone@example.com",
+    "customerName": "Nguyễn Văn Đạt",
+    "date": "2026-07-12T18:45:00Z",
+    "items": [
+      {
+        "id": "pioneer-ddj-1000",
+        "name": "Pioneer DJ DDJ-1000",
+        "price": 32000000,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1516873240891-4bf014598ab4?q=80&w=600&auto=format&fit=crop"
+      }
+    ],
+    "subtotal": 32000000,
+    "discount": 1000000,
+    "voucherCode": "VIPDISCOUNT",
+    "total": 31000000,
+    "status": "Pending",
+    "paymentMethod": "COD",
+    "shippingAddress": "45 Lê Lợi, Quận Hải Châu, Đà Nẵng",
+    "phone": "0905999888"
+  }
+]

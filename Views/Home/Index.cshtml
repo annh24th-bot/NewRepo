@@ -1,0 +1,81 @@
+@using DjStoreWeb.Models
+@{
+    ViewData["Title"] = "Trang chủ";
+    var categories = (List<Category>)ViewBag.Categories;
+    var flashSale = (List<Product>)ViewBag.FlashSale;
+    var featured = (List<Product>)ViewBag.Featured;
+    var news = (List<NewsPost>)ViewBag.News;
+}
+
+<section class="bg-gradient-to-br from-neutral-900 via-neutral-900 to-orange-950/40 border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+            <span class="inline-block bg-brand/20 text-brand text-xs font-bold px-3 py-1 rounded-full mb-4">DJ STORE — Thiết bị chính hãng</span>
+            <h1 class="text-4xl md:text-5xl font-black leading-tight mb-4">Nâng tầm mọi <span class="text-brand">set nhạc</span> của bạn</h1>
+            <p class="text-neutral-400 mb-6">Bàn DJ Controller, Mixer, CDJ, phần mềm bản quyền Rekordbox / FL Studio / Serato và gói nhạc DJ chất lượng cao — tất cả trong một nơi.</p>
+            <a asp-controller="Home" asp-action="Shop" class="inline-block bg-brand hover:bg-brand-dark text-white font-bold px-8 py-3 rounded-full">Khám phá cửa hàng</a>
+        </div>
+        <img src="https://images.unsplash.com/photo-1516873240891-4bf014598ab4?q=80&w=900" class="rounded-2xl shadow-2xl" alt="DJ setup" />
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 py-10">
+    <h2 class="text-lg font-bold mb-4">Danh mục sản phẩm</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+        @foreach (var c in categories)
+        {
+            <a asp-controller="Home" asp-action="Shop" asp-route-category="@c.Id"
+               class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 text-center hover:border-brand transition">
+                <div class="text-xs font-semibold">@c.Name</div>
+            </a>
+        }
+    </div>
+</section>
+
+@if (flashSale.Any())
+{
+    <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold">⚡ Flash Sale</h2>
+            <a asp-controller="Home" asp-action="Shop" class="text-sm text-brand hover:underline">Xem tất cả</a>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            @foreach (var p in flashSale)
+            {
+                @await Html.PartialAsync("_ProductCard", p)
+            }
+        </div>
+    </section>
+}
+
+<section class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold">Sản phẩm nổi bật</h2>
+        <a asp-controller="Home" asp-action="Shop" class="text-sm text-brand hover:underline">Xem tất cả</a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        @foreach (var p in featured)
+        {
+            @await Html.PartialAsync("_ProductCard", p)
+        }
+    </div>
+</section>
+
+@if (news.Any())
+{
+    <section class="max-w-7xl mx-auto px-4 py-10">
+        <h2 class="text-lg font-bold mb-4">Tin tức &amp; cẩm nang</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+            @foreach (var n in news)
+            {
+                <a asp-controller="News" asp-action="Detail" asp-route-id="@n.Id" class="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden card-hover">
+                    <img src="@n.Image" class="w-full h-40 object-cover" alt="@n.Title" />
+                    <div class="p-4">
+                        <span class="text-xs text-brand">@n.Category</span>
+                        <h3 class="font-semibold mt-1 line-clamp-2">@n.Title</h3>
+                    </div>
+                </a>
+            }
+        </div>
+    </section>
+}

@@ -1,0 +1,45 @@
+@using DjStoreWeb.Models
+@model List<InventoryLog>
+@{
+    var product = (Product)ViewBag.Product;
+    ViewData["Title"] = $"Lịch sử kho - {product.Name}";
+}
+
+<a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-3"><i class="bi bi-arrow-left me-1"></i>Quay lại kho hàng</a>
+
+<div class="card stat-card p-3">
+    <h6 class="mb-3">@product.Name <span class="text-muted small">(@product.Id)</span></h6>
+    <table class="table align-middle">
+        <thead><tr><th>Thời gian</th><th>Loại</th><th>Thay đổi</th><th>Tồn sau</th><th>Lý do</th><th>Người thực hiện</th></tr></thead>
+        <tbody>
+            @foreach (var l in Model)
+            {
+                <tr>
+                    <td>@l.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        @if (l.ChangeType == "In")
+                        {
+                            <span class="badge bg-success">Nhập kho</span>
+                        }
+                        else if (l.ChangeType == "Out")
+                        {
+                            <span class="badge bg-danger">Xuất kho</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-info text-dark">Thiết lập</span>
+                        }
+                    </td>
+                    <td>@(l.QuantityChange > 0 ? "+" : "")@l.QuantityChange</td>
+                    <td>@l.StockAfter</td>
+                    <td class="small">@l.Reason</td>
+                    <td class="small text-muted">@l.PerformedBy</td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6" class="text-center text-muted py-4">Chưa có lịch sử điều chỉnh nào.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

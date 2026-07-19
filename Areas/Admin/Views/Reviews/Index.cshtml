@@ -1,0 +1,62 @@
+@using DjStoreWeb.Models
+@model List<Review>
+@{
+    ViewData["Title"] = "Đánh giá sản phẩm";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="btn-group">
+        <a asp-action="Index" class="btn btn-sm @(ViewBag.Filter == null ? "btn-primary" : "btn-outline-secondary")">Tất cả</a>
+        <a asp-action="Index" asp-route-filter="unreplied" class="btn btn-sm @(ViewBag.Filter == "unreplied" ? "btn-primary" : "btn-outline-secondary")">
+            Chưa phản hồi (@ViewBag.UnrepliedCount)
+        </a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card stat-card p-4 text-center text-muted">Chưa có đánh giá nào.</div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var r in Model)
+        {
+            <div class="col-12">
+                <div class="card stat-card p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <a asp-area="" asp-controller="Home" asp-action="Product" asp-route-id="@r.ProductId" target="_blank" class="fw-bold text-decoration-none">
+                                @(r.Product?.Name ?? r.ProductId)
+                            </a>
+                            <div class="small text-muted">@r.CustomerName (@r.CustomerEmail)</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="text-warning">@(new string('★', r.Rating))@(new string('☆', 5 - r.Rating))</div>
+                            <div class="text-muted small">@r.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</div>
+                        </div>
+                    </div>
+                    <p class="mb-3">@r.Comment</p>
+
+                    @if (!string.IsNullOrWhiteSpace(r.AdminReply))
+                    {
+                        <div class="bg-light rounded-3 p-3 mb-3">
+                            <div class="small fw-bold text-primary mb-1">Phản hồi công khai (@r.RepliedAt?.ToLocalTime().ToString("dd/MM/yyyy HH:mm"))</div>
+                            <div class="small">@r.AdminReply</div>
+                        </div>
+                    }
+
+                    <div class="d-flex gap-2">
+                        <form asp-action="Reply" asp-route-id="@r.Id" method="post" class="d-flex gap-2 flex-fill">
+                            <input type="text" name="adminReply" class="form-control form-control-sm" placeholder="Viết phản hồi công khai cho đánh giá này..." value="@r.AdminReply" required />
+                            <button type="submit" class="btn btn-sm btn-primary text-nowrap">Lưu phản hồi</button>
+                        </form>
+                        <form asp-action="Delete" asp-route-id="@r.Id" method="post" onsubmit="return confirm('Xóa đánh giá này?')">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

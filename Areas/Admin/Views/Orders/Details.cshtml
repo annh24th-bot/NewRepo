@@ -1,0 +1,63 @@
+@using DjStoreWeb.Models
+@model Order
+@{
+    ViewData["Title"] = $"Đơn hàng #{Model.OrderCode}";
+    var statuses = (string[])ViewBag.Statuses;
+}
+
+<div class="row g-3">
+    <div class="col-md-8">
+        <div class="card stat-card p-3 mb-3">
+            <h6 class="mb-3">Sản phẩm đã đặt</h6>
+            <table class="table align-middle">
+                <thead><tr><th>Sản phẩm</th><th>Đơn giá</th><th>SL</th><th class="text-end">Thành tiền</th></tr></thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td class="d-flex align-items-center gap-2">
+                                <img src="@item.Image" style="width:40px;height:40px;object-fit:cover;border-radius:8px" />
+                                @item.Name
+                            </td>
+                            <td>@item.Price.ToString("N0")đ</td>
+                            <td>@item.Quantity</td>
+                            <td class="text-end">@((item.Price * item.Quantity).ToString("N0"))đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <div style="min-width:260px">
+                    <div class="d-flex justify-content-between"><span>Tạm tính</span><span>@Model.Subtotal.ToString("N0")đ</span></div>
+                    <div class="d-flex justify-content-between text-success"><span>Giảm giá @(string.IsNullOrEmpty(Model.VoucherCode) ? "" : $"({Model.VoucherCode})")</span><span>-@Model.Discount.ToString("N0")đ</span></div>
+                    <hr />
+                    <div class="d-flex justify-content-between fw-bold fs-5"><span>Tổng cộng</span><span>@Model.Total.ToString("N0")đ</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card stat-card p-3 mb-3">
+            <h6 class="mb-3">Thông tin giao hàng</h6>
+            <p class="mb-1"><strong>@Model.CustomerName</strong></p>
+            <p class="mb-1 text-muted small">@Model.CustomerEmail</p>
+            <p class="mb-1">📞 @Model.Phone</p>
+            <p class="mb-1">📍 @Model.ShippingAddress</p>
+            <p class="mb-0">💳 @Model.PaymentMethod</p>
+        </div>
+
+        <div class="card stat-card p-3">
+            <h6 class="mb-3">Cập nhật trạng thái</h6>
+            <form asp-action="UpdateStatus" asp-route-id="@Model.Id" method="post" class="d-flex gap-2">
+                <select name="status" class="form-select">
+                    @foreach (var s in statuses)
+                    {
+                        <option value="@s" selected="@(Model.Status == s)">@s</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>

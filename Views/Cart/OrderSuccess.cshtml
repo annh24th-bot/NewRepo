@@ -1,0 +1,46 @@
+@using DjStoreWeb.Models
+@model Order
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+    var driveLinks = (Dictionary<string, string>)ViewBag.DriveLinks;
+    bool isProcessed = Model.Status is OrderStatus.Processed or OrderStatus.Shipping or OrderStatus.Delivered;
+}
+<div class="max-w-2xl mx-auto px-4 py-20 text-center">
+    <div class="text-5xl mb-4">✅</div>
+    <h1 class="text-2xl font-black mb-2">Đặt hàng thành công!</h1>
+    <p class="text-neutral-400 mb-8">Mã đơn hàng của bạn là <span class="text-brand font-bold">#@Model.OrderCode</span>. Chúng tôi sẽ liên hệ xác nhận trong thời gian sớm nhất.</p>
+
+    <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-left space-y-2 mb-8">
+        @foreach (var item in Model.Items)
+        {
+            <div class="flex justify-between text-sm">
+                <span>@item.Name × @item.Quantity</span>
+                <span>@((item.Price * item.Quantity).ToString("N0"))đ</span>
+            </div>
+
+            @if (driveLinks.TryGetValue(item.ProductId, out var link))
+            {
+                @if (isProcessed)
+                {
+                    <div class="bg-brand/10 border border-brand/30 rounded-lg px-3 py-2 flex items-center justify-between gap-2">
+                        <span class="text-xs text-neutral-300">📁 Nội dung số đã sẵn sàng</span>
+                        <a href="@link" target="_blank" rel="noopener" class="text-brand text-xs font-semibold hover:underline">Truy cập Google Drive →</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="bg-neutral-800 rounded-lg px-3 py-2 text-xs text-neutral-500">
+                        Link Google Drive sẽ được mở khi đơn hàng được xử lý/xác nhận thanh toán.
+                    </div>
+                }
+            }
+        }
+        <div class="border-t border-neutral-800 my-2"></div>
+        <div class="flex justify-between font-bold">
+            <span>Tổng cộng</span>
+            <span class="text-brand">@Model.Total.ToString("N0")đ</span>
+        </div>
+    </div>
+
+    <a asp-controller="Home" asp-action="Index" class="bg-brand hover:bg-brand-dark text-white font-bold px-8 py-3 rounded-full">Về trang chủ</a>
+</div>

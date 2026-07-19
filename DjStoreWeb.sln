@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11919.86 stable
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DjStoreWeb", "DjStoreWeb.csproj", "{A5E46E50-E993-440B-9566-E07B68AD2C86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Database", "Core.Database\Core.Database.csproj", "{51EFD769-55AF-4612-972D-5172B87DF566}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5E46E50-E993-440B-9566-E07B68AD2C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E46E50-E993-440B-9566-E07B68AD2C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E46E50-E993-440B-9566-E07B68AD2C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E46E50-E993-440B-9566-E07B68AD2C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51EFD769-55AF-4612-972D-5172B87DF566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51EFD769-55AF-4612-972D-5172B87DF566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51EFD769-55AF-4612-972D-5172B87DF566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51EFD769-55AF-4612-972D-5172B87DF566}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4900710E-B059-4D29-88ED-FE7173C9ABCD}
+	EndGlobalSection
+EndGlobal

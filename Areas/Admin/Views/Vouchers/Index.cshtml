@@ -1,0 +1,48 @@
+@using DjStoreWeb.Models
+@model List<Voucher>
+@{
+    ViewData["Title"] = "Mã giảm giá";
+}
+
+<div class="d-flex justify-content-end mb-3">
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Tạo mã giảm giá</a>
+</div>
+
+<div class="card stat-card p-3">
+    <table class="table align-middle">
+        <thead><tr><th>Mã</th><th>Mô tả</th><th>Giá trị</th><th>Đơn tối thiểu</th><th>Hết hạn</th><th>Đã dùng</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    <td><code>@v.Code</code></td>
+                    <td class="small">@v.Description</td>
+                    <td>@(v.DiscountType == "percent" ? $"{v.DiscountValue}%" : $"{v.DiscountValue.ToString("N0")}đ")</td>
+                    <td>@v.MinOrder.ToString("N0")đ</td>
+                    <td>@(v.ExpiryDate?.ToString("dd/MM/yyyy") ?? "Không giới hạn")</td>
+                    <td>@v.UsedCount@(v.UsageLimit > 0 ? $" / {v.UsageLimit}" : "")</td>
+                    <td>
+                        @if (v.IsActive)
+                        {
+                            <span class="badge bg-success">Hoạt động</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Tắt</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@v.Code" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                        <form asp-action="Delete" asp-route-id="@v.Code" method="post" class="d-inline" onsubmit="return confirm('Xóa mã giảm giá này?')">
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr><td colspan="8" class="text-center text-muted py-4">Chưa có mã giảm giá nào.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

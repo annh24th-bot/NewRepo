@@ -1,0 +1,296 @@
+[
+  {
+    "id": "pioneer-ddj-flx4",
+    "name": "Pioneer DJ DDJ-FLX4 Controller",
+    "category": "dj-controller",
+    "brand": "Pioneer DJ",
+    "price": 8500000,
+    "originalPrice": 9500000,
+    "rating": 4.9,
+    "reviews": 124,
+    "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600",
+    "description": "Bàn DJ Controller 2 kênh hoàn hảo cho người mới bắt đầu và bán chuyên nghiệp. Hỗ trợ đa thiết bị, tích hợp sâu với Rekordbox và Serato.",
+    "specs": {
+      "Kênh điều khiển": "2 kênh",
+      "Phần mềm": "Rekordbox, Serato DJ Lite",
+      "Kết nối": "USB-C to PC/Mac",
+      "Trọng lượng": "2.1 kg"
+    },
+    "flashSale": true,
+    "discount": "10%"
+  },
+  {
+    "id": "pioneer-djm-a9",
+    "name": "Pioneer DJM-A9 Professional Mixer",
+    "category": "mixer",
+    "brand": "Pioneer DJ",
+    "price": 75000000,
+    "originalPrice": 79000000,
+    "rating": 5.0,
+    "reviews": 42,
+    "image": "https://images.unsplash.com/photo-1516873240891-4bf014598ab4?q=80&w=600",
+    "description": "Bàn mixer 4 kênh tiêu chuẩn câu lạc bộ thế hệ mới với chất lượng âm thanh đỉnh cao, kết nối Bluetooth không dây và dải EQ mượt mà.",
+    "specs": {
+      "Kênh": "4 kênh",
+      "Soundcard": "Kép 32-bit USB Type-C",
+      "Beat FX": "14 bộ hiệu ứng chuyên sâu",
+      "Bluetooth": "Có hỗ trợ"
+    },
+    "flashSale": false,
+    "discount": "5%"
+  },
+  {
+    "id": "pioneer-cdj-3000",
+    "name": "Pioneer CDJ-3000 Professional Media Player",
+    "category": "cdj",
+    "brand": "Pioneer DJ",
+    "price": 68000000,
+    "originalPrice": 72000000,
+    "rating": 4.9,
+    "reviews": 64,
+    "image": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=600",
+    "description": "Đầu phát nhạc cao cấp nhất thế giới dành cho các DJ chuyên nghiệp tại lễ hội và club lớn. Màn hình cảm ứng 9 inch sắc nét, vi xử lý MPU mạnh mẽ.",
+    "specs": {
+      "Màn hình": "9 inch cảm ứng HD",
+      "Hỗ trợ định dạng": "ALAC, AAC, AIFF, FLAC, MP3, WAV",
+      "Jog Wheel": "Cải tiến siêu mượt, màn hình LCD giữa"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "technics-sl1200",
+    "name": "Technics SL-1200MK7 Turntable",
+    "category": "turntable",
+    "brand": "Technics",
+    "price": 28500000,
+    "originalPrice": 30000000,
+    "rating": 4.8,
+    "reviews": 51,
+    "image": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=600",
+    "description": "Huyền thoại mâm đĩa xoay truyền thống cho giới DJ biểu diễn Scratch và Audiophile nghe đĩa than thực tế. Động cơ trực tiếp lực kéo khỏe, chống rung tuyệt vời.",
+    "specs": {
+      "Hệ thống": "Truyền động trực tiếp",
+      "Tốc độ xoay": "33-1/3, 45, 78 vòng/phút",
+      "Trọng lượng": "9.6 kg"
+    },
+    "flashSale": true,
+    "discount": "5%"
+  },
+  {
+    "id": "pioneer-hdj-x10",
+    "name": "Tai nghe DJ Pioneer HDJ-X10-K",
+    "category": "headphones",
+    "brand": "Pioneer DJ",
+    "price": 9900000,
+    "originalPrice": 11000000,
+    "rating": 4.9,
+    "reviews": 110,
+    "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=600",
+    "description": "Tai nghe DJ flagship đầu tiên trên thế giới tái tạo âm thanh tần số siêu cao từ 5 Hz đến 40 kHz. Khung kim loại chịu va đập cực tốt tiêu chuẩn quân đội.",
+    "specs": {
+      "Tần số đáp ứng": "5 Hz - 40,000 Hz",
+      "Trở kháng": "32 Ohm",
+      "Độ nhạy": "106 dB"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "pioneer-vm50",
+    "name": "Loa kiểm âm Pioneer VM-50 (Cặp)",
+    "category": "speakers",
+    "brand": "Pioneer DJ",
+    "price": 8400000,
+    "originalPrice": 9500000,
+    "rating": 4.7,
+    "reviews": 38,
+    "image": "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=600",
+    "description": "Cặp loa kiểm âm phòng thu 5-inch Class D cho âm thanh trung thực, bass đầm chắc và dải cao tách bạch phục vụ làm nhạc, chơi DJ tại nhà cực đã.",
+    "specs": {
+      "Củ loa bass": "5.25 inch sợi Aramid",
+      "Công suất": "Class D 60W",
+      "Bộ chỉnh DSP": "4 chế độ tinh chỉnh phòng nghe"
+    },
+    "flashSale": true,
+    "discount": "11%"
+  },
+  {
+    "id": "focusrite-scarlett-2i2",
+    "name": "Sound Card Focusrite Scarlett 2i2 Gen 4",
+    "category": "soundcard",
+    "brand": "Focusrite",
+    "price": 5400000,
+    "originalPrice": 6000000,
+    "rating": 4.8,
+    "reviews": 145,
+    "image": "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=600",
+    "description": "Sound card thu âm thế hệ mới nhất với preamp microphone siêu sạch, dải dynamic 120dB chuyên nghiệp để thu giọng hát và nhạc cụ sắc nét.",
+    "specs": {
+      "Độ phân giải": "24-bit / 192 kHz",
+      "Đầu vào": "2 ngõ Combo XLR/Instrument",
+      "Tính năng": "Air Mode, Auto Gain, Clip Safe"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "shure-sm58",
+    "name": "Microphone Shure SM58-LCE chính hãng",
+    "category": "microphone",
+    "brand": "Shure",
+    "price": 2900000,
+    "originalPrice": 3500000,
+    "rating": 4.9,
+    "reviews": 230,
+    "image": "https://images.unsplash.com/photo-1516280440614-37939bbacd6a?q=80&w=600",
+    "description": "Huyền thoại micro hát karaoke, biểu diễn sân khấu và MC phòng thu. Cực bền, lọc tạp âm xuất sắc, chống hú rít tuyệt đối.",
+    "specs": {
+      "Loại micro": "Dynamic",
+      "Tần số": "50 Hz - 15,000 Hz",
+      "Búp hướng": "Cardioid"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "laser-cyber-rgb",
+    "name": "Đèn Laser Sân Khấu Cyber RGB",
+    "category": "lighting",
+    "brand": "DJ-STORE",
+    "price": 3800000,
+    "originalPrice": 4500000,
+    "rating": 4.6,
+    "reviews": 29,
+    "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600",
+    "description": "Đèn Laser 3 mắt RGB cảm biến theo nhịp nhạc cực bốc dành cho phòng DJ bay, quán cafe bar nhỏ hoặc tiệc gia đình.",
+    "specs": {
+      "Màu quét": "Đỏ, Xanh lá, Xanh dương",
+      "Chế độ chạy": "Cảm biến nhạc, Tự động, qua bàn DMX"
+    },
+    "flashSale": true,
+    "discount": "15%"
+  },
+  {
+    "id": "bag-ddj-flx4",
+    "name": "Túi chống sốc Pioneer DJC-FLX4",
+    "category": "accessories",
+    "brand": "Pioneer DJ",
+    "price": 1200000,
+    "originalPrice": 1500000,
+    "rating": 4.8,
+    "reviews": 78,
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600",
+    "description": "Túi xách bảo vệ chống sốc chính hãng lót mút trứng cho bàn DJ Pioneer DDJ-FLX4, DDJ-400 và các thiết bị tương đương.",
+    "specs": {
+      "Chất liệu": "Nhựa EVA Durashock dẻo",
+      "Màng lót": "Mút trứng đàn hồi chống va đập"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "fl-studio-lifetime",
+    "name": "Phần mềm FL Studio Producer Edition (Lifetime)",
+    "category": "software-license",
+    "brand": "Image-Line",
+    "price": 5800000,
+    "originalPrice": 5800000,
+    "rating": 4.9,
+    "reviews": 160,
+    "image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600",
+    "description": "Bản quyền phần mềm làm nhạc EDM, HipHop hàng đầu thế giới. Gói Producer Edition kích hoạt bằng Key chính hãng, cập nhật trọn đời miễn phí.",
+    "specs": {
+      "Thời hạn bản quyền": "Trọn đời (Lifetime Free Updates)",
+      "Hệ điều hành": "Windows & macOS",
+      "Hỗ trợ": "Cài đặt và kích hoạt từ xa qua Ultraview"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "rekordbox-yearly",
+    "name": "Bản quyền phần mềm Rekordbox Creative (Hàng Năm)",
+    "category": "software-license",
+    "brand": "Pioneer DJ",
+    "price": 3600000,
+    "originalPrice": 4200000,
+    "rating": 4.8,
+    "reviews": 45,
+    "image": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600",
+    "description": "Gói bản quyền Rekordbox Creative 1 năm đồng bộ thư viện nhạc đám mây Cloud Library Sync, mở khóa toàn bộ tính năng phân tích nhạc nâng cao.",
+    "specs": {
+      "Thời hạn": "1 Năm (Yearly Subscription)",
+      "Tính năng mở khóa": "Cloud Sync, Vocal Detection, Edit Mode"
+    },
+    "flashSale": true,
+    "discount": "14%"
+  },
+  {
+    "id": "drive-2tb-yearly",
+    "name": "Bộ nhớ đám mây Google Drive 2TB (1 Năm)",
+    "category": "google-drive",
+    "brand": "Google",
+    "price": 1200000,
+    "originalPrice": 1500000,
+    "rating": 4.9,
+    "reviews": 195,
+    "image": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&w=600",
+    "description": "Nâng cấp trực tiếp dung lượng lưu trữ 2TB bộ nhớ Google Drive trên tài khoản gmail chính chủ của bạn để lưu trữ kho nhạc sàn Lossless đồ sộ.",
+    "specs": {
+      "Dung lượng": "2TB (2000 GB)",
+      "Thời hạn": "1 Năm (Yearly Upgrade)",
+      "Kích hoạt": "Chính chủ, không mất dữ liệu hiện có"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "drive-10tb-lifetime",
+    "name": "Bộ nhớ đám mây Google Drive 10TB (Trọn Đời)",
+    "category": "google-drive",
+    "brand": "Google",
+    "price": 8500000,
+    "originalPrice": 10000000,
+    "rating": 5.0,
+    "reviews": 32,
+    "image": "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=600",
+    "description": "Gói siêu lưu trữ 10TB đám mây Google Drive không giới hạn thời gian. Bảo hành trọn gói chính chủ phục vụ các studio thu âm nhạc quy mô lớn.",
+    "specs": {
+      "Dung lượng": "10TB (10,000 GB)",
+      "Thời hạn": "Trọn đời (Lifetime)",
+      "Bảo hành": "5 Năm 1 đổi 1"
+    },
+    "flashSale": false
+  },
+  {
+    "id": "music-vinahouse-ultra",
+    "name": "Gói Nhạc Vinahouse Hot TikTok Premium 2026",
+    "category": "music-pack",
+    "brand": "DJ-STORE",
+    "price": 450000,
+    "originalPrice": 600000,
+    "rating": 4.9,
+    "reviews": 180,
+    "image": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600",
+    "description": "Tuyển chọn hơn 200 tracks Vinahouse, Remix, Mashup, TikTok hot nhất hiện tại chất lượng gốc phòng thu 320kbps và WAV Lossless siêu căng cực mạnh.",
+    "specs": {
+      "Thể loại": "Vinahouse, TikTok Remix, Mashup",
+      "Định dạng": "MP3 320kbps & WAV Lossless",
+      "Dung lượng gói": "15 GB link tải Google Drive"
+    },
+    "flashSale": true,
+    "discount": "25%"
+  },
+  {
+    "id": "music-edm-festival-pack",
+    "name": "Gói Nhạc EDM Festival & Bigroom House 2026",
+    "category": "music-pack",
+    "brand": "DJ-STORE",
+    "price": 500000,
+    "originalPrice": 500000,
+    "rating": 4.8,
+    "reviews": 92,
+    "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600",
+    "description": "Tổng hợp dải nhạc Electro House, Progressive, Bigroom, Techno, HipHop chuyên dụng cho DJ biểu diễn Club và Festival sôi động.",
+    "specs": {
+      "Thể loại": "EDM, Electro House, Techno, HipHop",
+      "Định dạng": "WAV Lossless / AIFF",
+      "Tổng số": "150 Tracks bản quyền sạch"
+    },
+    "flashSale": false
+  }
+]
